@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $departments = [
-            'Information Technology', 'Medicine', 'Engineering', 'Law'
+            'Information Technology', 'Medicine', 'Engineering', 'Law', 'Social Studies',
         ];
 
         foreach($departments as $department) {
