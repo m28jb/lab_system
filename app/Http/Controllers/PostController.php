@@ -55,4 +55,13 @@ class PostController extends Controller
         return redirect()->back();
     }
 
+    public function delete(Request $request,Post $post) {
+
+ 
+    if($post->user-id != auth()->user()->id){
+        abort(403);
+    }
+    $post->delete();
+    return redirect()->back();
+}
 }

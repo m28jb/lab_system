@@ -48,6 +48,21 @@
                         </div>
                     </div>
 
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          options
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" role="button">Edit</a></li>
+                          
+                          <form action="{{route ('posts.delete',$post)}}" method="POST">
+                          @method('DELETE')
+                          @csrf
+                          <li><button class="dropdown-item" type="submit"><span class="text-danger">Delete</span></button></li>
+                        </form>
+                        </ul>
+                      </div>
+
                     {{ $post->content }}
 
                 </div>
