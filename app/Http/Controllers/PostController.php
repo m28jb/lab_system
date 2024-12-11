@@ -55,6 +55,7 @@ class PostController extends Controller
         return redirect()->back();
     }
 
+<<<<<<< HEAD
     public function delete(Request $request,Post $post) {
 
  
@@ -64,4 +65,33 @@ class PostController extends Controller
     $post->delete();
     return redirect()->back();
 }
+=======
+
+    public function delete(Request $request, Post $post) {
+
+        $this->authorize('delete', $post);
+
+        $post->delete();
+
+        return redirect()->back();
+    }
+
+    public function edit(Request $request, Post $post) {
+
+
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Request $request, Post $post) {
+
+        $validated = $this->validate($request, [
+            'content' => ['required', 'string', 'max:255']
+        ]);
+
+        $post->update($validated);
+
+        return redirect()->back();
+
+    }
+>>>>>>> 463ba6d0815e51a05ff79c70c1c5c954ebbec556
 }
