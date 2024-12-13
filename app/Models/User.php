@@ -50,4 +50,43 @@ class User extends Authenticatable
     public function posts() {
         return $this->hasMany(Post::class);
     }
+
+    // public function friends()
+    // {
+    //     return $this->hasMany(Friend::class, 'sender_id');
+    // }
+
+    // public function friendOf()
+    // {
+    //     return $this->hasMany(Friend::class, 'receiver_id');
+    // }
+
+    public function sentFriendRequests()
+    {
+        return $this->hasMany(Friendship::class, 'user_id');
+    }
+
+    // Friendships where the user is the receiver
+    public function receivedFriendRequests()
+    {
+        return $this->hasMany(Friendship::class, 'friend_id');
+    }
+
+    // Accepted friends
+    public function friend()
+    {
+        return $this->hasMany(Friendship::class, 'user_id')->where('status', 'accepted')
+                     ->orWhere('friend_id', $this->id)->where('status', 'accepted');
+    }
+
+    // Friends list
+    public function friends()
+    {
+        return $this->hasMany(Friendship::class, 'user_id')
+            ->where('status', 'accepted')
+            ->orWhere(function ($query) {
+                $query->where('friend_id', $this->id)
+                      ->where('status', 'accepted');
+            });
+    }
 }

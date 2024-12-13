@@ -55,18 +55,6 @@ class PostController extends Controller
         return redirect()->back();
     }
 
-<<<<<<< HEAD
-    public function delete(Request $request,Post $post) {
-
- 
-    if($post->user-id != auth()->user()->id){
-        abort(403);
-    }
-    $post->delete();
-    return redirect()->back();
-}
-=======
-
     public function delete(Request $request, Post $post) {
 
         $this->authorize('delete', $post);
@@ -93,5 +81,16 @@ class PostController extends Controller
         return redirect()->back();
 
     }
->>>>>>> 463ba6d0815e51a05ff79c70c1c5c954ebbec556
+
+    public function index()
+    {
+        // Get authenticated user's friends and their posts
+        $friends = auth()->user()->friends()->pluck('friend_id')->toArray();
+        $friends[] = auth()->id(); // Include own posts
+
+        $posts = Post::whereIn('user_id', $friends)->latest()->get();
+
+        return view('posts.index', compact('posts'));
+    }
+
 }

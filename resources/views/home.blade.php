@@ -22,6 +22,20 @@
                         <button type="submit" class="btn btn-sm btn-primary">Post</button>
                     </div>
                 </form>
+{{-- <!----FRIENDSSSS--->
+            <div class="container">
+                <h3>Posts</h3>
+                @foreach($posts as $post)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5>{{ $post->user->name }}</h5>
+                            <p>{{ $post->content }}</p>
+                            <small>Posted on {{ $post->created_at->format('d M Y, h:i A') }}</small>
+                        </div>
+                    </div>
+                @endforeach
+            </div> --}}
+            
 
             </div>
 
@@ -37,6 +51,8 @@
                             <div >
                                 {{ $post->user->name }}
                             </div>
+
+                                
 
                             <hr>
                         </div>
@@ -90,21 +106,7 @@
                         </div>
                     </div>
 
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          options
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" role="button">Edit</a></li>
-                          
-                          <form action="{{route ('posts.delete',$post)}}" method="POST">
-                          @method('DELETE')
-                          @csrf
-                          <li><button class="dropdown-item" type="submit"><span class="text-danger">Delete</span></button></li>
-                        </form>
-                        </ul>
-                      </div>
-
+                    
                     {{ $post->content }}
 
                 </div>
